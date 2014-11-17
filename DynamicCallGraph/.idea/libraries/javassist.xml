@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="javassist">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/javassist.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../javassist" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../javassist/src/main" />
+      <root url="file://$PROJECT_DIR$/../../javassist/src/test" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../../javassist" recursive="false" />
+  </library>
+</component>

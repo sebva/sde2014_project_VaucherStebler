@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Boot-Class-Path: javassist.jar CallGraph.jar
+Premain-Class: ch.unibe.sde2014.project.CallGraphAgent
+Agent-Class: ch.unibe.sde2014.project.CallGraphAgent
