@@ -1,0 +1,22 @@
+view := RTView new.
+shapeMethods := RTEllipse new size: [:e | e numberOfLinesOfCode]; color: Color red.
+shapeClasses := RTEllipse new size: 5"[:e | e numberOfLinesOfCode]"; color: Color green.
+methods := shapeMethods elementsOn: (MooseModel root first allMethods first: 100).
+classes := shapeClasses elementsOn: MooseModel root first allClasses.
+view addAll: methods.
+view addAll: classes.
+dict := CallGraph new generate.
+RTEdge buildEdgesFromObjects: (dict keys) from: #yourself toAll: [ :e | dict at: e ] using: (RTLine new color: (Color blue alpha: 0.2)) inView: view.
+RTCircleLayout new initialRadius:500; on: methods.
+view @ RTDraggableView.
+methods @ RTDraggable.
+methods @ RTHighlightable.
+methods @ RTPopup.
+methods @ (RTMenuActivable new action: #inspect).
+
+RTCircleLayout new initialRadius:500; on: classes.
+classes @ RTDraggable.
+classes @ RTHighlightable.
+classes @ RTPopup.
+classes @ (RTMenuActivable new action: #inspect).
+view
