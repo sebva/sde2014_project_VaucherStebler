@@ -6,6 +6,8 @@ public class Call {
     private final String methodCalled;
     private final long inCallTimestamp;
     private long outCallTimestamp;
+    private int outgoingCalls;
+    private long externalTime;
 
     public Call(String methodCalling, String methodCalled, long inCallTimestamp, long outCallTimestamp) {
         this.methodCalling = methodCalling;
@@ -36,7 +38,27 @@ public class Call {
         return outCallTimestamp;
     }
 
+    public int getOutgoingCalls() {
+        return outgoingCalls;
+    }
+
     public void setOutCallTimestamp(long outCallTimestamp) {
         this.outCallTimestamp = outCallTimestamp;
+    }
+
+    public void incrementOutgoingCalls() {
+        outgoingCalls++;
+    }
+
+    public long getT() {
+        return outCallTimestamp - inCallTimestamp;
+    }
+
+    public long getTPrime() {
+        return getT() - externalTime;
+    }
+
+    public void addExternalTime(long t) {
+        externalTime += t;
     }
 }
