@@ -1,20 +1,26 @@
+dict := CallGraph new generate: 10.
+methods := dict keys.
+classes := Set new.
+dict values do: [ :each | classes addAll: each. ].
+
 view := RTView new.
-shapeMethods := RTEllipse new size: [:e | e numberOfLinesOfCode]; color: Color red.
-shapeClasses := RTEllipse new size: 5"[:e | e numberOfLinesOfCode]"; color: Color green.
-methods := shapeMethods elementsOn: (MooseModel root first allMethods first: 100).
-classes := shapeClasses elementsOn: MooseModel root first allClasses.
+shapeMethods := RTEllipse new size: [:e | 0.005*e numberOfLinesOfCode * e incomingInvocations size]; color: Color red.
+shapeClasses := RTEllipse new size: [:e | 0.1*e numberOfLinesOfCode]; color: Color green.
+
+methods := shapeMethods elementsOn: methods.
+classes := shapeClasses elementsOn: classes.
+
 view addAll: methods.
 view addAll: classes.
-dict := CallGraph new generate.
 RTEdge buildEdgesFromObjects: (dict keys) from: #yourself toAll: [ :e | dict at: e ] using: (RTLine new color: (Color blue alpha: 0.2)) inView: view.
-RTCircleLayout new initialRadius:500; on: methods.
+RTCenteredCircleLayout new initialRadius:200; on: methods.
 view @ RTDraggableView.
 methods @ RTDraggable.
 methods @ RTHighlightable.
 methods @ RTPopup.
 methods @ (RTMenuActivable new action: #inspect).
 
-RTCircleLayout new initialRadius:500; on: classes.
+RTCenteredCircleLayout new initialRadius:400; on: classes.
 classes @ RTDraggable.
 classes @ RTHighlightable.
 classes @ RTPopup.
