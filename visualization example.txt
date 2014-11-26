@@ -4,8 +4,8 @@ classes := Set new.
 dict values do: [ :each | classes addAll: each. ].
 
 view := RTView new.
-shapeMethods := RTEllipse new size: [:e | 0.005*e numberOfLinesOfCode * e incomingInvocations size]; color: Color red.
-shapeClasses := RTEllipse new size: [:e | 0.1*e numberOfLinesOfCode]; color: Color green.
+shapeMethods := RTEllipse new size: [:e | 0.02 * e numberOfLinesOfCode * e incomingInvocations size]; color: Color red.
+shapeClasses := RTEllipse new size: [:e | 0.1 * e numberOfLinesOfCode]; color: Color green.
 
 methods := shapeMethods elementsOn: methods.
 classes := shapeClasses elementsOn: classes.
