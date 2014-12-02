@@ -2,10 +2,14 @@ dict := CallGraph new generate: 10.
 methods := dict keys.
 classes := Set new.
 dict values do: [ :each | classes addAll: each. ].
+numInvocations := methods collect: [ :e | e incomingInvocations size ].
+minNumInvocations := numInvocations min.
+maxNumInvocations := numInvocations max.
+scaling := 1 / (maxNumInvocations - minNumInvocations) - minNumInvocations.
 
 view := RTView new.
-shapeMethods := RTEllipse new size: [:e | 0.02 * e numberOfLinesOfCode * e incomingInvocations size]; color: Color red.
-shapeClasses := RTEllipse new size: [:e | 0.1 * e numberOfLinesOfCode]; color: Color green.
+shapeMethods := RTBox new size: [:e | 0.3 * e numberOfLinesOfCode]; color: [:e | Color r:1g:0b:0alpha: (50+((e incomingInvocations size)-minNumInvocations) / (maxNumInvocations - minNumInvocations))].
+shapeClasses := RTEllipse new size: [:e | 0.2 * e numberOfLinesOfCode]; color: Color green.
 
 methods := shapeMethods elementsOn: methods.
 classes := shapeClasses elementsOn: classes.
@@ -13,14 +17,14 @@ classes := shapeClasses elementsOn: classes.
 view addAll: methods.
 view addAll: classes.
 RTEdge buildEdgesFromObjects: (dict keys) from: #yourself toAll: [ :e | dict at: e ] using: (RTLine new color: (Color blue alpha: 0.2)) inView: view.
-RTCenteredCircleLayout new initialRadius:200; on: methods.
+RTCenteredCircleLayout new initialRadius:300; on: methods.
 view @ RTDraggableView.
 methods @ RTDraggable.
 methods @ RTHighlightable.
 methods @ RTPopup.
 methods @ (RTMenuActivable new action: #inspect).
 
-RTCenteredCircleLayout new initialRadius:400; on: classes.
+RTCenteredCircleLayout new initialRadius:500; on: classes.
 classes @ RTDraggable.
 classes @ RTHighlightable.
 classes @ RTPopup.

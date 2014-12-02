@@ -1,0 +1,83 @@
+\documentclass{paper}
+
+%\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{url}
+\graphicspath{ {images/} }
+\usepackage{float}
+
+
+% load package with ``framed'' and ``numbered'' option.
+%\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+
+% something NOT relevant to the usage of the package.
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{18pt}
+
+
+
+
+
+
+\usepackage[latin1]{inputenc} 
+\usepackage[T1]{fontenc} 
+
+\usepackage{listings} 
+\lstset{% 
+   language=Matlab, 
+   basicstyle=\small\ttfamily, 
+} 
+
+
+
+\title{Software Design and Evolution - Project}
+
+
+
+\author{Sebastien Vaucher, 00-000-000\\Roger Stebler, 08-928-343}
+% //////////////////////////////////////////////////
+
+
+\begin{document}
+
+
+
+\maketitle
+
+
+% Add figures:
+%\begin{figure}[t]
+%%\begin{center}
+%\quad\quad   \includegraphics[width=1\linewidth]{ass2}
+%%\end{center}
+%
+%\label{fig:performance}
+%\end{figure}
+
+\section{General information}
+
+\paragraph{Selected program}\mbox{}\vspace{10pt}\\
+We decided to analyze the Java program called JFLAP. JFLAP is a software to experiment with finite automata, turing mashines and several types of grammars. \footnote{\url{http://www.jflap.org}}. We created an .mse file using Pangea.
+
+
+\section{Static analysis}
+
+\paragraph{Visualizing the call-graph}\mbox{}\vspace{10pt}\\
+Since we are interested in finding long methods that are called often, we decided to to only show the top 20 methods regarding LOC*NOIC in our visualization. Using the CHA algorithm we calculate the possible receivers of these methods and visualize the call-graph by showing the connections between the methods and the classes.
+
+
+The methods are displayed as red squares. Their size defines the numbers of lines of code and their brightness shows the numbers of invocations. The classes are green circles. All the objects are aligned in two circles. The methods represent the inner circle and the classes the outer circle.
+
+\section{Dynamic analysis}
+
+
+\paragraph{Off-the shelf profiler}\mbox{}\vspace{10pt}\\
+To profile JFLAP we tested \texttt{xprof} and \texttt{hprof}. Xprof is a really simple profiler, that does not provide much data. The data is split up for each thread and shows the number of invocations and the percentage of the runtime. Hprof did not run at all on our machines. We also tested the share-ware JProfiler. It's a powerful tool that displays the collected data in real-time with a graphical representation. It can directly find bottlenecks in the code.
+
+
+
+\end{document}
