@@ -15,8 +15,7 @@ maxLOCc := numLOCc max.
 view := RTView new.
 "Let size of squares be between [15 ... 85]"
 shapeMethods := RTBox new size: [:e | ((((e numberOfLinesOfCode)-minLOCm) / (maxLOCm - minLOCm)) * 70) + 15]; color: [:e | Color r:1g:0b:0alpha: ((((e incomingInvocations size)-minNumInvocations) / (maxNumInvocations - minNumInvocations)) * 0.7) + 0.3]. "Let alpha be between [0.3 ... 1.0]"
-shapeClasses := RTEllipse new size: [:e | ((((e numberOfLinesOfCode)-minLOCc) / (maxLOCc - minLOCc)) * 80) + 20]; color: Color green.
-"Let size of circles be between [20 ... 100]"
+shapeClasses := RTEllipse new size: [:e | ((((e numberOfLinesOfCode)-minLOCc) / (maxLOCc - minLOCc)) * 80) + 20]; color: Color green. "Let size of circles be between [20 ... 100]"
 
 methods := shapeMethods elementsOn: methods.
 classes := shapeClasses elementsOn: classes.
@@ -28,12 +27,12 @@ RTCenteredCircleLayout new initialRadius:300; on: methods.
 view @ RTDraggableView.
 methods @ RTDraggable.
 methods @ RTHighlightable.
-methods @ RTPopup.
+methods @ (RTPopup new text: [:e | e asString, ' - LOC: ', e numberOfLinesOfCode asString, ' - NOIC: ', e incomingInvocations size asString]).
 methods @ (RTMenuActivable new action: #inspect).
 
 RTCenteredCircleLayout new initialRadius:500; on: classes.
 classes @ RTDraggable.
 classes @ RTHighlightable.
-classes @ RTPopup.
+classes @ (RTPopup new text: [:e | e asString, ' - LOC: ', e numberOfLinesOfCode asString]).
 classes @ (RTMenuActivable new action: #inspect).
 view
