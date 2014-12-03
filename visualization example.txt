@@ -1,15 +1,22 @@
-dict := CallGraph new generate: 10.
+dict := CallGraph new generate: 20.
 methods := dict keys.
 classes := Set new.
 dict values do: [ :each | classes addAll: each. ].
 numInvocations := methods collect: [ :e | e incomingInvocations size ].
+numLOCm := methods collect: [ :e | e numberOfLinesOfCode ].
+numLOCc := classes collect: [ :e | e numberOfLinesOfCode ].
 minNumInvocations := numInvocations min.
 maxNumInvocations := numInvocations max.
-scaling := 1 / (maxNumInvocations - minNumInvocations) - minNumInvocations.
+minLOCm := numLOCm min.
+maxLOCm := numLOCm max.
+minLOCc := numLOCc min.
+maxLOCc := numLOCc max.
 
 view := RTView new.
-shapeMethods := RTBox new size: [:e | 0.3 * e numberOfLinesOfCode]; color: [:e | Color r:1g:0b:0alpha: (50+((e incomingInvocations size)-minNumInvocations) / (maxNumInvocations - minNumInvocations))].
-shapeClasses := RTEllipse new size: [:e | 0.2 * e numberOfLinesOfCode]; color: Color green.
+"Let size of squares be between [15 ... 85]"
+shapeMethods := RTBox new size: [:e | ((((e numberOfLinesOfCode)-minLOCm) / (maxLOCm - minLOCm)) * 70) + 15]; color: [:e | Color r:1g:0b:0alpha: ((((e incomingInvocations size)-minNumInvocations) / (maxNumInvocations - minNumInvocations)) * 0.7) + 0.3]. "Let alpha be between [0.3 ... 1.0]"
+shapeClasses := RTEllipse new size: [:e | ((((e numberOfLinesOfCode)-minLOCc) / (maxLOCc - minLOCc)) * 80) + 20]; color: Color green.
+"Let size of circles be between [20 ... 100]"
 
 methods := shapeMethods elementsOn: methods.
 classes := shapeClasses elementsOn: classes.

@@ -60,23 +60,28 @@
 
 \section{General information}
 
-\paragraph{Selected program}\mbox{}\vspace{10pt}\\
-We decided to analyze the Java program called JFLAP. JFLAP is a software to experiment with finite automata, turing mashines and several types of grammars. \footnote{\url{http://www.jflap.org}}. We created an .mse file using Pangea.
+\paragraph{Selection of the program}\mbox{}\vspace{10pt}\\
+We first tried to use an .mse file provided by Pangea. The smallest of those projects contained almost 2000 model classes. So we decided to use a smaller project and generate an .mse file by ourself.
+
+
+Finally we found the program JFLAP with less than 1000 classes. JFLAP is a software to experiment with finite automata, turing mashines and several types of grammars. \footnote{\url{http://www.jflap.org}}. So we created an .mse file for this program using Pangea and used that to do our static analysis.
 
 
 \section{Static analysis}
 
 \paragraph{Visualizing the call-graph}\mbox{}\vspace{10pt}\\
-Since we are interested in finding long methods that are called often, we decided to to only show the top 20 methods regarding LOC*NOIC in our visualization. Using the CHA algorithm we calculate the possible receivers of these methods and visualize the call-graph by showing the connections between the methods and the classes.
+Since we are interested in finding long methods that are called often and are time consuming, we decided to to only show the top 20 methods regarding LOC*NOIC in our visualization. Using the CHA algorithm we calculate the possible receivers of these methods and visualize the call-graph by showing the connections between the methods and the possible receiver classes.
 
 
-The methods are displayed as red squares. Their size defines the numbers of lines of code and their brightness shows the numbers of invocations. The classes are green circles. All the objects are aligned in two circles. The methods represent the inner circle and the classes the outer circle.
+The methods are displayed as red squares. Their size defines the numbers of lines of code and their brightness shows the numbers of invocations. The classes are displayed as green circles. All the objects are aligned in two circles. The methods represent the inner circle and the classes the outer circle. Using this design you can clearly distinguish between the classes and the methods.
 
 \section{Dynamic analysis}
 
 
 \paragraph{Off-the shelf profiler}\mbox{}\vspace{10pt}\\
-To profile JFLAP we tested \texttt{xprof} and \texttt{hprof}. Xprof is a really simple profiler, that does not provide much data. The data is split up for each thread and shows the number of invocations and the percentage of the runtime. Hprof did not run at all on our machines. We also tested the share-ware JProfiler. It's a powerful tool that displays the collected data in real-time with a graphical representation. It can directly find bottlenecks in the code.
+To profile JFLAP we tested \texttt{xprof} and \texttt{hprof}. \texttt{Xprof} is a really simple profiler, that does not provide much functionality. The data is split up for each thread and shows the number of invocations and the percentage of the runtime. \texttt{Hprof} did not run at all on our machines.
+
+So we decided to use the share-ware \texttt{JProfiler} to profile our program. It's a powerful tool that displays the collected data in real-time with a graphical representation. It can directly find bottlenecks in the code by ordering the methods using the total runtime (NOIC * T). It it also possible to collect information about the memory usage and a lot more.
 
 
 
