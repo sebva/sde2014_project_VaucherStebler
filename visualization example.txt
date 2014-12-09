@@ -1,4 +1,5 @@
-dict := CallGraph new generate: 35.
+cg := CallGraph new.
+dict := cg generate: 35.
 methods := dict keys.
 classes := Set new.
 dict values do: [ :each | classes addAll: each. ].
@@ -27,7 +28,7 @@ RTCenteredCircleLayout new initialRadius:300; on: methods.
 view @ RTDraggableView.
 methods @ RTDraggable.
 methods @ RTHighlightable.
-methods @ (RTPopup new text: [:e | e asString, ' - LOC: ', e numberOfLinesOfCode asString, ' - NOIC: ', e incomingInvocations size asString]).
+methods @ (RTPopup new text: [:e | e asString, ' - LOC: ', e numberOfLinesOfCode asString, ' - NOIC: ', e incomingInvocations size asString, ' - Rank: ', (cg ranks at: e) asString]).
 methods @ (RTMenuActivable new action: #inspect).
 
 RTCenteredCircleLayout new initialRadius:500; on: classes.
