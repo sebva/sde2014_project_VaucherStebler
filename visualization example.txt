@@ -1,4 +1,4 @@
-dict := CallGraph new generate: 20.
+dict := CallGraph new generate: 35.
 methods := dict keys.
 classes := Set new.
 dict values do: [ :each | classes addAll: each. ].
@@ -22,7 +22,7 @@ classes := shapeClasses elementsOn: classes.
 
 view addAll: methods.
 view addAll: classes.
-RTEdge buildEdgesFromObjects: (dict keys) from: #yourself toAll: [ :e | dict at: e ] using: (RTLine new color: (Color blue alpha: 0.2)) inView: view.
+RTEdge buildEdgesFromObjects: (dict keys) from: #yourself toAll: [ :e | dict at: e ] using: (RTLine new color: (Color blue alpha: 0.6); width: 5) inView: view.
 RTCenteredCircleLayout new initialRadius:300; on: methods.
 view @ RTDraggableView.
 methods @ RTDraggable.

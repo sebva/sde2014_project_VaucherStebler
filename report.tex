@@ -70,7 +70,7 @@ Finally we found the program JFLAP with less than 1000 classes. JFLAP is a softw
 \section{Static analysis}
 
 \paragraph{Visualizing the call-graph}\mbox{}\vspace{10pt}\\
-Since we are interested in finding long methods that are called often and are time consuming, we decided to only show the top 20 methods regarding LOC*NOIC in our visualization. Using the CHA algorithm we calculate the possible receivers of these methods and visualize the call-graph by showing the connections between the methods and the possible receiver classes.
+Since we are interested in finding long methods that are called often and are time consuming, we decided to only show the top 35 methods regarding LOC*NOIC in our visualization. Using the CHA algorithm we calculate the possible receivers of these methods and visualize the call-graph by showing the connections between the methods and the possible receiver classes.
 
 
 The methods are displayed as red squares. Their sizes define the number of lines of code and their brightness show the number of incoming invocations. The classes are displayed as green circles. All the objects are aligned in two circles. The methods are laid out in the inner circle and the classes in the outer circle. Using this design we can clearly distinguish classes and methods.
