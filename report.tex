@@ -77,11 +77,20 @@ The methods are displayed as red squares. Their sizes define the number of lines
 
 \section{Dynamic analysis}
 
+\paragraph{Homemade profiler}\mbox{}\vspace{10pt}\\
+We developed a profiler in Java that is able to track methods calls of any Java program. It is packaged in a JAR file, implementing the Java agent API.\footnote{Classes in the \texttt{java.lang.instrument} package} Before loading a class file, the JVM will submit it to our component for modification.
+
+
+If the class being modified is in a package satisfying some criteria,  we wrap each of its methods with two instructions using the Javassist library. The first is executed before and informs an object of ours that the program entered in a method. The second instruction is executed on exiting the method and informs the same object that the program exited the method. Using a combination of a stack and a list, we can extract the full call-graph of a given execution.
+
+
+The generated call-graph is only completely accurate if all methods, including internal Java methods, are instrumented. This is not practically feasible because the execution time gets really high and some internal methods cannot be modified without crashing the JVM.
+
 
 \paragraph{Off-the-shelf profiler}\mbox{}\vspace{10pt}\\
 To profile JFLAP we tested \texttt{xprof} and \texttt{hprof}. \texttt{Xprof} is a really simple profiler, that does not provide much functionality. The data is split up for each thread and shows the number of invocations and the percentage of the runtime. \texttt{Hprof} did not run at all on our machines.
 
-So we decided to use the shareware \texttt{JProfiler} to profile our program. It's a powerful tool that displays the collected data in real-time with a graphical representation. It can directly find bottlenecks in the code by ordering the methods using the total runtime (NOIC * T). It is also possible to collect information about the memory usage and some other Java-specific metrics.
+So we decided to use the shareware \texttt{JProfiler} to profile our program. It's a powerful tool that displays the collected data in real-time with a graphical representation. It can directly find bottlenecks in the code by ordering the methods using the total runtime (NOIC * T). It is also possible to collect information about the memory usage and some other Java-specific metrics. The main drawback about \texttt{JProfiler} is that it only shows a maximum of a hundred methods.
 
 
 
