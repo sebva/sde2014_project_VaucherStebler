@@ -17,13 +17,14 @@ public class CallGraphAgent implements ClassFileTransformer {
     private Logger logger;
 
     // Blacklist and/or whitelist can be ignored by setting either to null
-    private static final List<String> BLACKLIST = new ArrayList<>(Arrays.asList(new String[]{
-            "java.",
-            "javax.",
-            "sun.",
-            "com.sun",
-            "ch.unibe.sde2014.project"
-    }));
+    private static final List<String> BLACKLIST = new ArrayList<String>() {
+        {
+            add("java.");
+            add("javax.");
+            add("sun.");
+            add("com.sun");
+            add("ch.unibe.sde2014.project");
+        }};
     private static final List<String> WHITELIST = null;
 
     public CallGraphAgent() {
